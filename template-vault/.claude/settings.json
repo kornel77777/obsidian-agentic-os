@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 .claude/skills/yt/fetch_transcript.py:*)",
+      "Bash(yt-dlp:*)",
+      "Bash(date:*)",
+      "Bash(find:*)",
+      "WebSearch",
+      "WebFetch"
+    ]
+  }
+}

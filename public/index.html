@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agentic OS</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23a78bfa'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Saira+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/vendor/xterm.css">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="top">
+    <div class="brand">
+      <h1 id="brand-title">AGENTIC&nbsp;OS</h1>
+      <p id="brand-sub">command center</p>
+    </div>
+
+    <div class="usage" id="usage">
+      <div class="meter" id="m5">
+        <div class="ml"><span>Session · 5h</span><b class="pct">—</b></div>
+        <div class="bar"><i></i></div>
+        <div class="ms">waiting for Claude Code</div>
+      </div>
+      <div class="meter" id="m7">
+        <div class="ml"><span>Weekly · 7d</span><b class="pct">—</b></div>
+        <div class="bar"><i></i></div>
+        <div class="ms">—</div>
+      </div>
+      <div class="meter tokens" id="mt">
+        <div class="ml"><span>Tokens · today</span><b class="pct">—</b></div>
+        <svg class="uspark" viewBox="0 0 120 16" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div class="ms">—</div>
+      </div>
+    </div>
+
+    <div class="top-right">
+      <div class="clock">
+        <div class="time"><span id="hhmm">--:--</span><span class="sec" id="ss">:--</span></div>
+        <div class="date" id="date">—</div>
+      </div>
+      <button class="icon-btn" id="reset-layout" title="Reset panel layout">⟲</button>
+    </div>
+  </header>
+
+  <main class="grid" id="grid">
+    <aside class="col" data-col="left">
+      <section class="panel widget" data-widget="deadlines">
+        <h2 class="w-head"><span class="grip">⠿</span>Deadlines <small>next up</small><span class="rule"></span><span class="w-tools"><button data-act="collapse" title="Collapse">–</button><button data-act="max" title="Expand">⤢</button></span></h2>
+        <div class="w-body">
+          <div class="next" id="next-deadline"></div>
+          <ul class="deadlines" id="deadlines"></ul>
+        </div>
+        <div class="w-resize" title="Drag to resize · double-click to reset"></div>
+      </section>
+      <section class="panel widget" data-widget="vitals">
+        <h2 class="w-head"><span class="grip">⠿</span>Vault vitals <small id="vault-name">vault</small><span class="rule"></span><span class="w-tools"><button data-act="collapse" title="Collapse">–</button><button data-act="max" title="Expand">⤢</button></span></h2>
+        <div class="w-body">
+          <div class="vitals" id="vitals"></div>
+          <svg id="spark" class="spark" viewBox="0 0 280 46" preserveAspectRatio="none" aria-label="Notes touched per day, last 14 days"></svg>
+          <p class="caption">notes touched · last 14 days</p>
+        </div>
+        <div class="w-resize" title="Drag to resize · double-click to reset"></div>
+      </section>
+      <section class="panel widget grow" data-widget="goals">
+        <h2 class="w-head"><span class="grip">⠿</span>Directives <small id="goals-sub">goals</small><span class="rule"></span><span class="w-tools"><button data-act="collapse" title="Collapse">–</button><button data-act="max" title="Expand">⤢</button></span></h2>
+        <div class="w-body"><ul class="goals" id="goals"></ul></div>
+        <div class="w-resize" title="Drag to resize · double-click to reset"></div>
+      </section>
+    </aside>
+
+    <div class="gutter" data-gutter="left" title="Drag to resize column"></div>
+
+    <section class="center">
+      <div class="orb" id="orb"></div>
+      <div class="orb-label">
+        <div class="claude">CLAUDE</div>
+        <div class="activity" id="activity">Ready · idle</div>
+        <div class="prompt-line" id="prompt-line"></div>
+      </div>
+
+      <form class="command" id="ask-form" autocomplete="off">
+        <div class="cmd-row">
+          <span class="cmd-icon" aria-hidden="true">✦</span>
+          <textarea id="ask-text" rows="1" placeholder="Ask Claude…  ( / skills · ⇧↩ newline )"></textarea>
+          <select id="ask-model" aria-label="Model"><option value="sonnet">Sonnet</option><option value="opus">Opus</option><option value="haiku">Haiku</option></select>
+          <button type="button" class="toggle" id="ask-continue" aria-pressed="false" title="Continue the previous conversation">↩ cont.</button>
+          <button type="submit" class="primary">Send</button>
+        </div>
+        <div class="cmd-chips" id="cmd-chips"></div>
+      </form>
+
+      <div class="controls">
+        <div class="chips" id="chips" role="group" aria-label="Orb state">
+          <button data-state="idle">Idle</button>
+          <button data-state="working">Working</button>
+          <button data-state="waiting">Waiting</button>
+          <button data-state="error">Error</button>
+          <button data-state="auto" class="on">Auto</button>
+        </div>
+        <button class="link-btn" id="pause">Pause motion</button>
+        <ul class="sessions" id="sessions"></ul>
+      </div>
+
+      <div class="panel dock" id="dock">
+        <div class="dock-resize" id="dock-resize" title="Drag to resize"></div>
+        <div class="tabs" role="tablist">
+          <button role="tab" data-tab="reply" hidden>Reply</button>
+          <button role="tab" data-tab="today" class="on">Today</button>
+          <button role="tab" data-tab="brief">Brief · top 5</button>
+          <button role="tab" data-tab="videos">Watched</button>
+          <small data-for="today" id="today-sub"></small>
+          <small data-for="brief" id="brief-sub" hidden></small>
+        </div>
+        <div class="tab-body" data-body="reply" hidden><div id="reply" class="reply"></div></div>
+        <div class="tab-body" data-body="today"><div id="today" class="md"></div></div>
+        <div class="tab-body" data-body="brief" hidden><ol id="brief" class="brief"></ol></div>
+        <div class="tab-body" data-body="videos" hidden><ul id="videos" class="videos"></ul></div>
+      </div>
+    </section>
+
+    <div class="gutter" data-gutter="right" title="Drag to resize column"></div>
+
+    <aside class="col" data-col="right">
+      <section class="panel widget" data-widget="skills">
+        <h2 class="w-head"><span class="grip">⠿</span>Skills <small>quick access</small><span class="rule"></span><span class="w-tools"><button data-act="collapse" title="Collapse">–</button><button data-act="max" title="Expand">⤢</button></span></h2>
+        <div class="w-body">
+          <div class="skills" id="skills"></div>
+          <p class="caption">Runs in the background · results land in the vault</p>
+        </div>
+        <div class="w-resize" title="Drag to resize · double-click to reset"></div>
+      </section>
+      <section class="panel widget" data-widget="youtube">
+        <h2 class="w-head"><span class="grip">⠿</span>YouTube <small>/yt</small><span class="rule"></span><span class="w-tools"><button data-act="collapse" title="Collapse">–</button><button data-act="max" title="Expand">⤢</button></span></h2>
+        <div class="w-body">
+          <form id="yt-form" class="stack">
+            <input id="yt-url" type="url" placeholder="Paste a YouTube link" required autocomplete="off">
+            <div class="row">
+              <select id="yt-lang" aria-label="Language"><option value="">English</option><option value="ja">日本語</option></select>
+              <select id="yt-depth" aria-label="Depth"><option value="">Standard</option><option value="quick">Quick</option><option value="deep">Deep</option></select>
+              <button type="submit" class="primary">Analyze</button>
+            </div>
+          </form>
+        </div>
+        <div class="w-resize" title="Drag to resize · double-click to reset"></div>
+      </section>
+      <section class="panel widget grow" data-widget="activity">
+        <h2 class="w-head"><span class="grip">⠿</span>Activity <small>dashboard runs</small><span class="rule"></span><span class="w-tools"><button data-act="collapse" title="Collapse">–</button><button data-act="max" title="Expand">⤢</button></span></h2>
+        <div class="w-body"><ul class="runs" id="runs"></ul></div>
+        <div class="w-resize" title="Drag to resize · double-click to reset"></div>
+      </section>
+    </aside>
+  </main>
+
+  <div class="approvals" id="approvals" aria-live="polite"></div>
+
+  <section class="drawer" id="drawer">
+    <div class="drawer-resize" id="drawer-resize" title="Drag to resize"></div>
+    <div class="drawer-bar">
+      <button class="drawer-title" id="drawer-toggle"><span class="cmd">⌘</span> Terminals <small id="term-count">0 open</small><span class="caret">⌃</span></button>
+      <div class="term-tabs" id="term-tabs"></div>
+      <div class="drawer-actions">
+        <button data-new="claude" class="accent">+ Claude Code</button>
+        <button data-new="shell">+ Shell</button>
+      </div>
+    </div>
+    <div class="drawer-body" id="term-host">
+      <div class="term-empty" id="term-empty">
+        <p>Open <b>Claude Code</b> or a shell right here — it runs in your vault.</p>
+        <p class="caption">Sessions survive reloads · the usage meters above sync from Claude Code sessions</p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

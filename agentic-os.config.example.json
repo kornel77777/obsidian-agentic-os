@@ -1,0 +1,27 @@
+{
+  "vault": "~/Documents/MyVault",
+  "name": "Your Name",
+  "title": "AGENTIC OS",
+  "timezone": "America/New_York",
+  "port": 3217,
+  "claudeBin": "claude",
+  "defaultModel": "sonnet",
+  "paths": {
+    "daily": "05_Daily",
+    "goals": "00_Meta/Goals_and_Priorities.md",
+    "deadlines": "00_Meta/Deadlines.md",
+    "briefs": "03_Resources/Briefs",
+    "videos": "03_Resources/YouTube",
+    "concepts": "07_Concepts",
+    "sessions": "06_Claude_Sessions"
+  },
+  "deadlineFolders": ["01_Projects", "02_Areas"],
+  "skills": [
+    { "id": "plan-today", "label": "Plan Today", "prompt": "/plan-today" },
+    { "id": "news", "label": "News Brief", "prompt": "/news" },
+    { "id": "news-quick", "label": "Quick News", "prompt": "/news quick" },
+    { "id": "mine", "label": "Concept Mining", "prompt": "/mine" },
+    { "id": "close-day", "label": "Close Day", "prompt": "/close-day" }
+  ],
+  "extraAllowedTools": []
+}

@@ -1,0 +1,41 @@
+/* Agentic OS — make any note with `cssclasses: [agentic-os]` a full-bleed app tab.
+   The note's iframe fills the whole pane; title, properties and readable-line-length are bypassed. */
+
+/* The pane becomes the positioning frame… */
+.view-content:has(.agentic-os) {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+/* …every ancestor of the iframe stops being one, so the iframe can stretch to the pane. */
+.view-content:has(.agentic-os) *:has(iframe) {
+  position: static !important;
+  contain: none !important;
+  transform: none !important;
+}
+
+.agentic-os iframe {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  z-index: 10;
+  background: #07060d;
+}
+
+/* Hide the note chrome underneath. */
+.agentic-os .inline-title,
+.agentic-os .metadata-container,
+.agentic-os .callout,
+.agentic-os .embedded-backlinks,
+.agentic-os .mod-footer {
+  display: none !important;
+}
+.workspace-leaf-content:has(.agentic-os) .view-header {
+  background: #07060d;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.14);
+}

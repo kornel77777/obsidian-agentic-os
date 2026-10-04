@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude Terminal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/vendor/xterm.css">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body { height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+    .drawer { flex: 1; min-height: 0; border-top: 0; }
+    .drawer-body { display: block; flex: 1; height: auto; min-height: 0; }
+    .drawer-bar { padding: 6px 12px; flex-wrap: wrap; }
+    .term-pane { inset: 0 8px 8px 12px; }
+  </style>
+  <script type="module" src="/term-page.js"></script>
+</head>
+<body>
+  <section class="drawer open">
+    <div class="drawer-bar">
+      <span class="drawer-title"><span class="cmd">⌘</span> Terminals <small id="term-count">0 open</small></span>
+      <div class="term-tabs" id="term-tabs"></div>
+      <div class="drawer-actions">
+        <button data-new="claude" class="accent">+ Claude Code</button>
+        <button data-new="shell">+ Shell</button>
+      </div>
+    </div>
+    <div class="drawer-body" id="term-host">
+      <div class="term-empty" id="term-empty">
+        <p>Open <b>Claude Code</b> or a shell — it runs in your vault.</p>
+        <p class="caption">Same sessions as the dashboard drawer</p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

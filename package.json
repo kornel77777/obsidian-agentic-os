@@ -1,0 +1,31 @@
+{
+  "name": "obsidian-agentic-os",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A Jarvis-style command center for Claude Code on top of an Obsidian vault: live orb, skills, approvals, usage meters, embedded terminals.",
+  "scripts": {
+    "start": "node server.js",
+    "setup": "node scripts/setup.mjs",
+    "hooks": "node scripts/install-hooks.mjs",
+    "autostart": "sh scripts/install-autostart.sh",
+    "postinstall": "chmod +x node_modules/node-pty/prebuilds/*/spawn-helper 2>/dev/null || true"
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/addon-web-links": "^0.12.0",
+    "@xterm/xterm": "^6.0.0",
+    "marked": "^16.0.0",
+    "node-pty": "^1.1.0",
+    "three": "^0.180.0",
+    "ws": "^8.22.0"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ]
+}
