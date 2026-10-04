@@ -1,6 +1,6 @@
 # Obsidian Agentic OS
 
-**A Jarvis-style command center for [Claude Code](https://claude.com/claude-code), built on top of an Obsidian vault.**
+**A cool command center for [Claude Code](https://claude.com/claude-code), built on top of an Obsidian vault.**
 
 The vault becomes Claude's long-term memory. Skills become one-click buttons. A local HUD — which you can open as a tab *inside* Obsidian — shows a neural-network orb that reacts to what Claude is doing, your deadlines and goals, usage limits, approval prompts, and real Claude Code terminals.
 
