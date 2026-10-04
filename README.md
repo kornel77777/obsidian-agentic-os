@@ -4,17 +4,7 @@
 
 The vault becomes Claude's long-term memory. Skills become one-click buttons. A local HUD — which you can open as a tab *inside* Obsidian — shows a neural-network orb that reacts to what Claude is doing, your deadlines and goals, usage limits, approval prompts, and real Claude Code terminals.
 
-```
-┌──────────────┬──────────────────────────────┬──────────────┐
-│ Deadlines    │        ·  ·  ✦  ·  ·         │ Skills       │
-│ Vault vitals │      ·   the orb   ·         │ YouTube      │
-│ Goals        │        C L A U D E           │ Activity     │
-│              │ [ Ask Claude…          Send ]│              │
-│              │ Reply │ Today │ Brief │ Videos│              │
-├──────────────┴──────────────────────────────┴──────────────┤
-│ ⌘ Terminals   [Claude 1] [Shell 1]      + Claude Code  + Shell │
-└────────────────────────────────────────────────────────────┘
-```
+![Agentic OS HUD](docs/screenshot.webp)
 
 ## What you get
 
